@@ -1,6 +1,8 @@
-#include <UIPEthernet.h>
 #include <RCSwitch.h>
 #include <avr/wdt.h>
+#include <SPI.h>
+#include <UIPEthernet.h>
+//#include <Ethernet.h>
 
 // Параметры
 
@@ -15,15 +17,15 @@
 //#define ALIVETIMEOUT 300000    // Тайминг присутствия - 5min
 #define REPEATTIMEOUT 1500     // Таймаут повторного запроса
 
-//#define RCControl              // Флаг управления RC
+#define RCControl              // Флаг управления RC
 
 //#define UIP_CONNECT_TIMEOUT = 5; // Таймаут соединения
 
-uint8_t mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED}; // MAC
+uint8_t mac[6] = {0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xEC}; // MAC
 
 // Сеть
-IPAddress deviceip(10,9,0,241);
-IPAddress sendip(10,9,0,5);
+IPAddress deviceip(10,9,0,240);
+IPAddress sendip(10,9,0,2);
 
 //IPAddress deviceip(192,168,1,230);
 //IPAddress sendip(192,168,1,101);
@@ -44,14 +46,14 @@ EthernetClient client;
 #ifdef RCControl
   EthernetServer server = EthernetServer(80);
 
-char HTMLH[] PROGMEM = 
+const char HTMLH[] PROGMEM = 
   "HTTP/1.1 200 OK\r\n"
   "Content-Type: text/html\r\n"
   "\r\n"
   "<html><head><title>RC Switch gate</title></head><body>";
   
-char HTMLE[] PROGMEM =   
-  "</body></html>";  
+const char HTMLE[] PROGMEM =   
+  "</body></html>\r\n";  
 #endif 
 
 unsigned long GetTickDiff(unsigned long AOldTickCount, unsigned long ANewTickCount){
