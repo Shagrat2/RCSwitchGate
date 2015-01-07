@@ -1,8 +1,8 @@
 #include <RCSwitch.h>
 #include <avr/wdt.h>
 #include <SPI.h>
-#include <UIPEthernet.h>
-//#include <Ethernet.h>
+#include <UIPEthernet.h>  // HR911105A 
+//#include <Ethernet.h>   // w5100 
 
 // Параметры
 
